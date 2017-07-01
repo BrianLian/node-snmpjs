@@ -5,12 +5,15 @@
 var TrapListener = require('./lib/trap_listener');
 var message = require('./lib/protocol/message');
 
-var tl = new TrapListener({
-	log: console
-})
+module.exports = function setup(cb) {
+	var tl = new TrapListener({
+		log: console
+	})
 
-tl.on('trap', function (msg) {
-	console.log(message.serializer(msg))
-});
+	tl.on('trap', function (msg) {
+		cb(message.serializer(msg))
+	});
 
-tl.bind({ family: 'udp4', port: 162 });
+	tl.bind({ family: 'udp4', port: 162 });
+
+}
