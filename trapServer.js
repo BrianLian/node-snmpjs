@@ -7,7 +7,10 @@ var message = require('./lib/protocol/message');
 
 module.exports = function setup(cb) {
 	var tl = new TrapListener({
-		log: console
+		log: {
+			trace: function () {},
+			info: function () {}
+		}
 	})
 
 	tl.on('trap', function (msg) {
